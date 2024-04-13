@@ -1,7 +1,7 @@
 from aws_cdk import (
-    # Duration,
+    Duration,
     Stack,
-    # aws_sqs as sqs,
+    aws_sqs as sqs,
 )
 from constructs import Construct
 
@@ -13,7 +13,7 @@ class FrelivStack(Stack):
         # The code that defines your stack goes here
 
         # example resource
-        # queue = sqs.Queue(
-        #     self, "FrelivQueue",
-        #     visibility_timeout=Duration.seconds(300),
-        # )
+        queue = sqs.Queue(
+            self, "FrelivQueue",
+            visibility_timeout=Duration.seconds(300),
+        )
