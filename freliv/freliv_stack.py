@@ -2,6 +2,7 @@ from aws_cdk import (
     Duration,
     Stack,
     aws_sqs as sqs,
+    aws_lambda as lambda_function
 )
 from constructs import Construct
 
@@ -17,3 +18,9 @@ class FrelivStack(Stack):
             self, "FrelivQueue",
             visibility_timeout=Duration.seconds(300),
         )
+
+        function = lambda_function.Function(self, "DemoCDKFunction",
+                                            function_name="cdk_github_demo",
+                                            runtime=lambda_function.Runtime.PYTHON_3_9,
+                                            code=lambda_function.Code.from_asset('./lambda_code_demo'),
+                                            handler="demo_lambda.lambda_handler")
