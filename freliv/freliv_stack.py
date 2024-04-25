@@ -21,6 +21,6 @@ class FrelivStack(Stack):
 
         function = lambda_function.Function(self, "DemoCDKFunction",
                                             function_name="cdk_github_demo",
-                                            runtime=lambda_function.Runtime.PYTHON_3_9,
+                                            runtime=lambda_function.Runtime.PYTHON_3_12,
                                             code=lambda_function.Code.from_asset('./lambda_code_demo'),
                                             handler="demo_lambda.lambda_handler")
