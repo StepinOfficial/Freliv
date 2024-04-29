@@ -41,7 +41,7 @@ jobs:
         working-directory: .
               
       - name: CDK bootstrap
-        run: cdk bootstrap
+        run: cdk bootstrap aws://992382638145/ap-south-1
         working-directory: .
 
       - name: CDK Deploy
