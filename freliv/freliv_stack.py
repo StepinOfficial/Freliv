@@ -2,7 +2,9 @@ from aws_cdk import (
     Duration,
     Stack,
     aws_sqs as sqs,
-    aws_lambda as lambda_function
+    aws_lambda as lambda_function,
+    aws_dynamodb as ddb,
+    aws_s3 as s3
 )
 from constructs import Construct
 
@@ -16,7 +18,7 @@ class FrelivStack(Stack):
         # example resource
         queue = sqs.Queue(
             self, "FrelivQueue",
-            visibility_timeout=Duration.seconds(300),
+            visibility_timeout=Duration.seconds(300)
         )
 
         function = lambda_function.Function(self, "DemoCDKFunction",
@@ -24,3 +26,24 @@ class FrelivStack(Stack):
                                             runtime=lambda_function.Runtime.PYTHON_3_9,
                                             code=lambda_function.Code.from_asset('./lambda_code_demo'),
                                             handler="demo_lambda.lambda_handler")
+        
+        function = lambda_function.Function(self, "DummyLambda",
+                                            function_name="cdk_Lambda_code",
+                                            runtime=lambda_function.Runtime.PYTHON_3_9,
+                                            code=lambda_function.Code.from_asset('./lambda_code_demo'),
+                                            handler="lambda_code.lambda_handler")
+        
+        table = ddb.Table(
+            self, 'MyDataTable',
+            partition_key=ddb.Attribute(name='id', type=ddb.AttributeType.STRING)
+        )
+
+        bucket = s3.Bucket(
+            self, "MyUniqueBucket",
+            bucket_name="my-unique-bucket-name-12345",  # Bucket names must be globally unique
+            versioned=True,  # Enable versioning
+            removal_policy=s3.RemovalPolicy.DESTROY,  # Remove the bucket when the stack is deleted (use with caution)
+            auto_delete_objects=True,  # Automatically delete objects when the bucket is removed (use with caution)
+            encryption=s3.BucketEncryption.S3_MANAGED
+        )
+
