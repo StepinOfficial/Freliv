@@ -42,7 +42,6 @@ class FrelivStack(Stack):
             self, "MyUniqueBucket",
             bucket_name="my-unique-bucket-name-12345",  # Bucket names must be globally unique
             versioned=True,  # Enable versioning
-            removal_policy=s3.RemovalPolicy.DESTROY,  # Remove the bucket when the stack is deleted (use with caution)
             auto_delete_objects=True,  # Automatically delete objects when the bucket is removed (use with caution)
             encryption=s3.BucketEncryption.S3_MANAGED
         )
