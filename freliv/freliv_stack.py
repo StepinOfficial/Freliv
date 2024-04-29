@@ -40,7 +40,7 @@ class FrelivStack(Stack):
 
         bucket = s3.Bucket(
             self, "MyUniqueBucket",
-            bucket_name="my-unique-bucket-name-12345",  # Bucket names must be globally unique
+            bucket_name="my-unique-bucket-name-Freliv",  # Bucket names must be globally unique
             versioned=True,  # Enable versioning
             encryption=s3.BucketEncryption.S3_MANAGED
         )
